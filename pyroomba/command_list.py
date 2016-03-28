@@ -4,6 +4,7 @@
 import struct
 from . import roomba
 
+
 def digit_leds_ascii_opcode_func(args):
     ascii_str = args[0]
     if len(ascii_str) != 4:
@@ -13,6 +14,7 @@ def digit_leds_ascii_opcode_func(args):
         b = ord(c)
         bytes.append(b)
     return bytes
+
 
 GETTING_STARTED_COMMANDS = [{
         'name': 'Start',
