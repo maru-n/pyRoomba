@@ -63,14 +63,20 @@ CLEANING_COMMANDS = [
     # }
 ]
 
+def drive_direct_opcode_func(args):
+    vr = args[0]
+    vl = args[1]
+    if vr < -500 or 500 < vr or vl < -500 or 500 < vl:
+        raise roomba.RoombaException('wheel speed must be in range -500 ~ 500 mm/sec.')
+    return struct.pack(">Bhh", 145, args[0], args[1])
+
 ACTUATOR_COMMANDS = [{
     #     'name': 'Drive',
     #     'opcode': 137
     # },{
         'name': 'Drive Direct',
         'opcode': 145,
-        'opcode_func': lambda args: struct.pack(">Bhh", 145, args[0], args[1])
-        #'args': 'hh'
+        'opcode_func': drive_direct_opcode_func
     # },{
     #     'name': 'Drive PWM',
     #     'opcode': 146,
