@@ -20,8 +20,8 @@ class Roomba(object):
     def __init_single_command_method(self):
         for cmd in command_list.COMMANDS:
             def command(self, *args, cmd=cmd):
-                if args:
-                    bytes = struct.pack(">B" + cmd['args'], cmd['opcode'], args[0], args[1])
+                if "opcode_func" in cmd:
+                    bytes = cmd['opcode_func'](args)
                     self.send_bytes(bytes)
                 else:
                     self.send_bytes([cmd['opcode']])

@@ -1,6 +1,18 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+import struct
+from . import roomba
+
+def digit_leds_ascii_opcode_func(args):
+    ascii_str = args[0]
+    if len(ascii_str) != 4:
+        raise roomba.RoombaException('digital leds ascii must be 4 chars.')
+    bytes = [164]
+    for c in ascii_str:
+        b = ord(c)
+        bytes.append(b)
+    return bytes
 
 GETTING_STARTED_COMMANDS = [{
         'name': 'Start',
@@ -55,7 +67,8 @@ ACTUATOR_COMMANDS = [{
     # },{
         'name': 'Drive Direct',
         'opcode': 145,
-        'args': 'hh'
+        'opcode_func': lambda args: struct.pack(">Bhh", 145, args[0], args[1])
+        #'args': 'hh'
     # },{
     #     'name': 'Drive PWM',
     #     'opcode': 146,
@@ -81,6 +94,7 @@ ACTUATOR_COMMANDS = [{
     },{
         'name': 'Digit LEDs ASCII',
         'opcode': 164,
+        'opcode_func': digit_leds_ascii_opcode_func
     # },{
     #     'name': 'Song',
     #     'opcode': 140,

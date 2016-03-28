@@ -20,7 +20,7 @@ class TestRoomba(unittest.TestCase):
         #sleep(1)
 
     def test_send_bytes(self):
-        self.roomba.send_bytes([164, 65, 66, 67, 68])
+        self.roomba.send_bytes([1])
         sleep(1)
 
     def test_drive_direct(self):
@@ -30,6 +30,11 @@ class TestRoomba(unittest.TestCase):
         sleep(0.5)
         self.roomba.command_drive_direct(100,100)
         sleep(0.5)
+        self.roomba.command_drive_direct(0,0)
+
+    def test_digit_leds_ascii(self):
+        self.roomba.command_digit_leds_ascii('TEST')
+        sleep(1)
 
 if __name__ == '__main__':
     unittest.main()
