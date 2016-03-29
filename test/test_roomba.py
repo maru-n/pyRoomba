@@ -21,14 +21,16 @@ class TestRoomba(unittest.TestCase):
 
     def test_send_bytes(self):
         self.roomba.send_bytes([1])
-        sleep(1)
+        sleep(0.5)
 
     def test_drive_direct(self):
-        self.roomba.command_drive_direct(-100,-100)
+        self.roomba.command_drive_direct(-0.1,-0.1)
         sleep(0.5)
-        self.roomba.command_drive_direct(0,0)
+        self.roomba.command_drive_direct(0.1,-0.1)
         sleep(0.5)
-        self.roomba.command_drive_direct(100,100)
+        self.roomba.command_drive_direct(-0.1,0.1)
+        sleep(0.5)
+        self.roomba.command_drive_direct(0.1,0.1)
         sleep(0.5)
         self.roomba.command_drive_direct(0,0)
 
