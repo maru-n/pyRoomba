@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-from pyroomba.roomba import Roomba
+from pyroomba.roomba import *
 
 __author__  = 'marun'
 __version__ = '0.0.1'

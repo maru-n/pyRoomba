@@ -1,9 +1,9 @@
 import unittest
-from pyroomba import Roomba
+from pyroomba import Roomba, RoombaException
 from time import sleep
 
 #SERIAL_DEVICE = "/dev/tty.usbserial-DA017V7D"
-SERIAL_DEVICE = "/dev/ttyUSB0"
+SERIAL_DEVICE = "/dev/ttyUSB1"
 
 class TestRoomba(unittest.TestCase):
     def setUp(self):
@@ -24,19 +24,24 @@ class TestRoomba(unittest.TestCase):
         sleep(0.5)
 
     def test_drive_direct(self):
-        self.roomba.command_drive_direct(-0.1,-0.1)
+        self.roomba.command_drive_direct(-150,-150)
         sleep(0.5)
-        self.roomba.command_drive_direct(0.1,-0.1)
+        self.roomba.command_drive_direct(150,-150)
         sleep(0.5)
-        self.roomba.command_drive_direct(-0.1,0.1)
+        self.roomba.command_drive_direct(-150,150)
         sleep(0.5)
-        self.roomba.command_drive_direct(0.1,0.1)
+        self.roomba.command_drive_direct(150,150)
         sleep(0.5)
         self.roomba.command_drive_direct(0,0)
+
+    def test_drive_direct_overspeed_error(self):
+        with self.assertRaises(RoombaException):
+            self.roomba.command_drive_direct(600,600)
 
     def test_digit_leds_ascii(self):
         self.roomba.command_digit_leds_ascii('TEST')
         sleep(1)
+
 
 if __name__ == '__main__':
     unittest.main()
